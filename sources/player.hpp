@@ -13,11 +13,11 @@ namespace ariel{
         public:
             string name;
             int num_of_cards_won;
-            // Card cards_won[26];
             int num_of_cards_left;
             Card* cards_left = new Card[26];
-            // int index_card_won;
             bool playing_game;
+            // Card cards_won[26];
+            // int index_card_won;
         // public:
             Player(string name);
             ~Player(){delete[] cards_left;}

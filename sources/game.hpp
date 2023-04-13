@@ -16,12 +16,13 @@ namespace ariel
             Player* playerA;
             Player* playerB;
             int current_turn;
+            int amount_of_draws;
             int all_cards[52] = {0};
             int winner; // 1- player 1, 2- player 2, 0- none, 3- draw
             // int game_over; //0- not over, 1- over
             string printL;
-            string printStatA;
-            string printStatB;
+            // string printStatA;
+            // string printStatB;
             string printLast;
             bool flipped;
 
