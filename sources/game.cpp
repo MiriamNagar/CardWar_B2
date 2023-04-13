@@ -130,8 +130,8 @@ void Game::playTurn()
             flag = 1;
         }
     }
-    this->playerA->num_of_cards_left = this->current_turn + 1;
-    this->playerB->num_of_cards_left = this->current_turn + 1;
+    this->playerA->num_of_cards_left = 26 - this->current_turn;
+    this->playerB->num_of_cards_left = 26 - this->current_turn;
     this->printL += printLast + "\n";
 }
 
