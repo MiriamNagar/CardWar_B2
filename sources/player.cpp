@@ -20,6 +20,11 @@ Player::Player(string name)
     
 }
 
+// Player::Player(Player p)
+// {
+//     this(p.name);
+// }
+
 int Player::stacksize()
 {
     return this->num_of_cards_left;

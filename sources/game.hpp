@@ -13,11 +13,12 @@ namespace ariel
     class Game
     {
         private:
+            static unsigned long const NUM_OF_CARDS_IN_DECK = 52;
             Player* playerA;
             Player* playerB;
             int current_turn;
             int amount_of_draws;
-            int all_cards[52] = {0};
+            int all_cards[NUM_OF_CARDS_IN_DECK];
             int winner; // 1- player 1, 2- player 2, 0- none, 3- draw
             // int game_over; //0- not over, 1- over
             string printL;

@@ -12,6 +12,11 @@ Card::Card(int suit, int value)
     this->value = value;
 }
 
+// Card::Card(Card c)
+// {
+//     this(c.suit, c.value);
+// }
+
 string Card::convertCard()
 {
     string ret=string(Card::convert_value_enum[this->value-1])+ " of ";
