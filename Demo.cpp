@@ -24,9 +24,9 @@ int main() {
   // Create two players with their names 
    Player p1("Alice");
    Player p2("Bob");
-   Game game(p1,p2); 
-  // p1.printCards();
-  // p2.printCards();
+   Game game(p1,p1); 
+  p1.printCards();
+  p2.printCards();
 
   Card c(2, 3);
   // c.suit = 2;
@@ -34,9 +34,9 @@ int main() {
   // cout << c.convertCard() << endl;
 
    
-   for (int i=0;i<5;i++) {
-    game.playTurn();
-   }
+  //  for (int i=0;i<5;i++) {
+  //   game.playTurn();
+  //  }
    game.printLastTurn(); // print the last turn stats. For example:
   //                                                   // Alice played Queen of Hearts Bob played 5 of Spades. Alice wins.
   //                                                   // Alice played 6 of Hearts Bob played 6 of Spades. Draw. Alice played 10 of Clubs Bob played 10 of Diamonds. draw. Alice played Jack of Clubs Bob played King of Diamonds. Bob wins.
@@ -44,6 +44,7 @@ int main() {
   //  cout << p2.cardesTaken() << endl; // prints the amount of cards this player has won. 
   //  cout << p1.cardesTaken() << endl;
    game.playAll(); //playes the game untill the end
+   game.playTurn();
    cout << p2.cardesTaken() << endl; // prints the amount of cards this player has won. 
    cout << p1.cardesTaken() << endl;
    game.printWiner(); // prints the name of the winning player

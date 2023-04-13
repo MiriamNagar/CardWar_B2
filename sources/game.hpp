@@ -26,6 +26,7 @@ namespace ariel
             // string printStatB;
             string printLast;
             bool flipped;
+            bool game_ended;
 
 
         public:

@@ -12,7 +12,7 @@ Player::Player(string name)
     // if(!name) throw invalid_argument("Invalid name");
     this->name = name;
     this->num_of_cards_won = 0;
-    this->num_of_cards_left = 26;
+    this->num_of_cards_left = 0;
     this->playing_game = false;
     // this->cards_won = {};
     // this->cards_left ;
@@ -32,7 +32,7 @@ int Player::stacksize()
 
 int Player::cardesTaken()
 {
-    return this->num_of_cards_won;
+    return 2*(this->num_of_cards_won);
 }
 
 void Player::printCards()
