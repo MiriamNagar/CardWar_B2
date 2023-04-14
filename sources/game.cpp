@@ -5,6 +5,8 @@
 #include "game.hpp"
 #include "player.hpp"
 #include "card.hpp"
+#include <array>
+#include <vector>
 
 using namespace std;
 
@@ -31,36 +33,35 @@ Game::Game(Player& A, Player& B): playerA(A), playerB(B)
 void Game::dealCards()
 {
     int counter = 0;
-    int range_v = 13;
-    int range_s = 4;
-    int i = 0;
+    size_t range_v = 13;
+    size_t range_s = 4;
     while (counter < 26)
     {
-        int num_v = rand() % range_v;
-        int num_s = rand() % range_s;
+        size_t num_v = (size_t)rand() % range_v;
+        size_t num_s = (size_t)rand() % range_s;
         if(this->all_cards[((num_v)*4 + num_s)] == 0)
         {
             this->all_cards[((num_v)*4 + num_s)] = 1;
             Card c((num_s+1), (num_v+1));
-            this->playerA.cards_left[i++] = c;
+            this->playerA.cards_left.push_back(c);
             counter++;
         }
     }
     // cout<< counter<< endl;
     int j = 0;
     counter = 0;
-    for(int i = 0 ; i< 52; i++)
+    for(size_t i = 0 ; i< 52; i++)
     {
         if(this->all_cards[i] == 0)
         {
             this->all_cards[i] = 1;
             Card c((i%4)+1, (i/4)+1);
-            this->playerB.cards_left[j++] = c;
+            this->playerB.cards_left.push_back(c);
             counter++;
         }
     }
     // cout<< counter<< endl;
-    for(int i =0 ;i< 52;i++)
+    for(size_t i =0 ;i< 52;i++)
     {
         this->all_cards[i] = 0;
     }
