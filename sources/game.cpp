@@ -12,9 +12,7 @@ namespace ariel{
 Game::Game(Player& A, Player& B): playerA(&A), playerB(&B)
 {
     // if(this->playerA == NULL || !this->playerB) throw invalid_argument("one of the players entered are invalid");
-    if(this->playerA->playing_game || this->playerB->playing_game) 
-        throw invalid_argument("one of the players are currently playing in another game");
-    if((this->playerA->name) == (this->playerB->name)) throw invalid_argument("same player entered twice");
+    if(this->playerA->playing_game || this->playerB->playing_game) throw invalid_argument("one of the players are currently playing in another game");
     this->current_turn = 0;
     this->winner = 0;
     // this->game_over = 0;
@@ -78,6 +76,7 @@ void Game::dealCards()
 
 void Game::playTurn()
 {
+    if((this->playerA->name) == (this->playerB->name)) throw invalid_argument("same player entered twice");
     if(game_ended) throw invalid_argument("game ended...no more turns.");
     // int start_index = this->current_turn;
     this->printLast = "";
@@ -123,6 +122,8 @@ void Game::playTurn()
         }
         if(this->current_turn > 25)
         {
+            this->playerA->playing_game = false;
+            this->playerB->playing_game = false;
             if(this->playerA->num_of_cards_won > this->playerB->num_of_cards_won) this->winner = 1;
             else if(this->playerA->num_of_cards_won < this->playerB->num_of_cards_won) this->winner = 2;
             else this->winner = 3;
@@ -146,6 +147,8 @@ void Game::playAll()
     {
         this->playTurn();
     }
+    this->playerA->playing_game = false;
+    this->playerB->playing_game = false;
 }
 
 void Game::printWiner()

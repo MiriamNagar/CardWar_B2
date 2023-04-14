@@ -21,13 +21,14 @@ int main() {
     Player p1("Alice");
     Player p2("Bob");
     Game game(p1, p2);
-    game.playAll();
-    int sum = p1.stacksize() + p1.cardesTaken() + p2.stacksize() + p2.cardesTaken();
-    // CHECK(sum == 52);
-    cout << p1.stacksize() << endl;
-    cout << p2.stacksize() << endl;
-    cout << p1.cardesTaken() << endl;
-    cout << p2.cardesTaken() << endl;
+    for (int i = 0; i < 5; i++)
+    {
+        game.playTurn();
+    }
+    game.printLastTurn();
+    game.printLog();
+    game.printStats();
+    game.printWiner();
 
 
 

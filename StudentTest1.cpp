@@ -69,6 +69,8 @@ TEST_CASE("One player")
 {
     Player p1("Alice");
     Game game(p1, p1);
+    // cout << "here" << endl;
+    // cout << p1->playing_game << endl;
     CHECK_THROWS(game.playTurn());
 }
 
