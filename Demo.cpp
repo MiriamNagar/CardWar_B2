@@ -28,7 +28,7 @@ int main() {
     game.printLastTurn();
     game.printLog();
     game.printStats();
-    game.printWiner();
+    // CHECK_NOTHROW(game.printWiner());
 
 
 
