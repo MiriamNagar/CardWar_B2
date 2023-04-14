@@ -9,31 +9,23 @@
 using namespace std;
 
 namespace ariel{
-Game::Game(Player& A, Player& B): playerA(&A), playerB(&B)
+Game::Game(Player& A, Player& B): playerA(A), playerB(B)
 {
     // if(this->playerA == NULL || !this->playerB) throw invalid_argument("one of the players entered are invalid");
-    if(this->playerA->playing_game || this->playerB->playing_game) throw invalid_argument("one of the players are currently playing in another game");
+    if(this->playerA.playing_game || this->playerB.playing_game) throw invalid_argument("one of the players are currently playing in another game");
     this->current_turn = 0;
     this->winner = 0;
-    // this->game_over = 0;
-    // this->all_cards = {0};
     this->flipped = false;
     this->amount_of_draws = 0;
     this->game_ended = false;
 
-    this->playerA->num_of_cards_left = 26;
-    this->playerB->num_of_cards_left = 26;
+    this->playerA.num_of_cards_left = 26;
+    this->playerB.num_of_cards_left = 26;
 
-    this->playerA->playing_game = true;
-    this->playerB->playing_game = true;
+    this->playerA.playing_game = true;
+    this->playerB.playing_game = true;
 
-    this->dealCards();
-
-    // bool flag5 = true;
-    // for(int i =0 ;i< 52;i++)
-    // {
-    //     if(this->all_cards[i] == 0) cout << "not all" << endl;
-    // }
+    if(&playerA != &playerB) this->dealCards();
 }
 
 void Game::dealCards()
@@ -50,7 +42,7 @@ void Game::dealCards()
         {
             this->all_cards[((num_v)*4 + num_s)] = 1;
             Card c((num_s+1), (num_v+1));
-            this->playerA->cards_left[i++] = c;
+            this->playerA.cards_left[i++] = c;
             counter++;
         }
     }
@@ -63,7 +55,7 @@ void Game::dealCards()
         {
             this->all_cards[i] = 1;
             Card c((i%4)+1, (i/4)+1);
-            this->playerB->cards_left[j++] = c;
+            this->playerB.cards_left[j++] = c;
             counter++;
         }
     }
@@ -76,7 +68,7 @@ void Game::dealCards()
 
 void Game::playTurn()
 {
-    if((this->playerA->name) == (this->playerB->name)) throw invalid_argument("same player entered twice");
+    if (&playerA == &playerB) throw invalid_argument("same player entered twice");
     if(game_ended) throw invalid_argument("game ended...no more turns.");
     // int start_index = this->current_turn;
     this->printLast = "";
@@ -84,23 +76,23 @@ void Game::playTurn()
     int count_winnings = 0;
     while(flag == 0)
     {
-        if(this->playerA->cards_left[this->current_turn].get_val() < this->playerB->cards_left[this->current_turn].get_val())
+        if(this->playerA.cards_left[this->current_turn].get_val() < this->playerB.cards_left[this->current_turn].get_val())
         {
-            this->printLast += playerA->name + " played " + (playerA->cards_left[this->current_turn]).convertCard() + " " +
-                              playerB->name + " played " + (playerB->cards_left[this->current_turn]).convertCard() + ". " + playerB->name + " wins.";
-            this->playerB->num_of_cards_won += count_winnings + 1;
+            this->printLast += playerA.name + " played " + (playerA.cards_left[this->current_turn]).convertCard() + " " +
+                              playerB.name + " played " + (playerB.cards_left[this->current_turn]).convertCard() + ". " + playerB.name + " wins.";
+            this->playerB.num_of_cards_won += count_winnings + 1;
             this->flipped = false;
             this->current_turn += 1;
             count_winnings = 0;
             flag = 1;
         }
-        else if(this->playerA->cards_left[this->current_turn].get_val() > this->playerB->cards_left[this->current_turn].get_val())
+        else if(this->playerA.cards_left[this->current_turn].get_val() > this->playerB.cards_left[this->current_turn].get_val())
         {
-            this->printLast += playerA->name + " played " + (playerA->cards_left[this->current_turn]).convertCard() + " " +
-                              playerB->name + " played " + (playerB->cards_left[this->current_turn]).convertCard() + ". " + playerA->name + " wins.";
-            // this->playerA->cards_won[this->playerA->index_card_won] = this->playerB->cards_left[this->current_turn];
+            this->printLast += playerA.name + " played " + (playerA.cards_left[this->current_turn]).convertCard() + " " +
+                              playerB.name + " played " + (playerB.cards_left[this->current_turn]).convertCard() + ". " + playerA.name + " wins.";
+            // this->playerA.cards_won[this->playerA.index_card_won] = this->playerB.cards_left[this->current_turn];
             // cout<< "==============================================================================="<<endl;
-            this->playerA->num_of_cards_won += count_winnings + 1;
+            this->playerA.num_of_cards_won += count_winnings + 1;
             this->flipped = false;
             this->current_turn += 1;
             count_winnings = 0;
@@ -108,31 +100,31 @@ void Game::playTurn()
         }
         else
         {
-            this->printLast = playerA->name + " played " + (playerA->cards_left[this->current_turn]).convertCard() + " " +
-                              playerB->name + " played " + (playerB->cards_left[this->current_turn]).convertCard() + ". Draw.";
+            this->printLast = playerA.name + " played " + (playerA.cards_left[this->current_turn]).convertCard() + " " +
+                              playerB.name + " played " + (playerB.cards_left[this->current_turn]).convertCard() + ". Draw.";
             this->current_turn += 2;
             this->flipped = true;
             this->amount_of_draws += 1;
             count_winnings += 2;
             if(this->current_turn > 25){
-                int left = 52-(this->playerA->num_of_cards_won + this->playerB->num_of_cards_won);
-                this->playerA->num_of_cards_won += left/2;
-                this->playerB->num_of_cards_won += left/2;
+                int left = 52-(this->playerA.num_of_cards_won + this->playerB.num_of_cards_won);
+                this->playerA.num_of_cards_won += left/2;
+                this->playerB.num_of_cards_won += left/2;
             }
         }
         if(this->current_turn > 25)
         {
-            this->playerA->playing_game = false;
-            this->playerB->playing_game = false;
-            if(this->playerA->num_of_cards_won > this->playerB->num_of_cards_won) this->winner = 1;
-            else if(this->playerA->num_of_cards_won < this->playerB->num_of_cards_won) this->winner = 2;
+            this->playerA.playing_game = false;
+            this->playerB.playing_game = false;
+            if(this->playerA.num_of_cards_won > this->playerB.num_of_cards_won) this->winner = 1;
+            else if(this->playerA.num_of_cards_won < this->playerB.num_of_cards_won) this->winner = 2;
             else this->winner = 3;
             this->game_ended = true;
             flag = 1;
         }
     }
-    this->playerA->num_of_cards_left = 26 - this->current_turn;
-    this->playerB->num_of_cards_left = 26 - this->current_turn;
+    this->playerA.num_of_cards_left = 26 - this->current_turn;
+    this->playerB.num_of_cards_left = 26 - this->current_turn;
     this->printL += printLast + "\n";
 }
 
@@ -147,8 +139,8 @@ void Game::playAll()
     {
         this->playTurn();
     }
-    this->playerA->playing_game = false;
-    this->playerB->playing_game = false;
+    this->playerA.playing_game = false;
+    this->playerB.playing_game = false;
 }
 
 void Game::printWiner()
@@ -158,8 +150,8 @@ void Game::printWiner()
         cout << "the game is not over yet" << endl;
         return;
     }
-    else if(this->winner == 1){cout << this->playerA->name << endl;}
-    else if(this->winner == 2){cout << this->playerB->name << endl;}
+    else if(this->winner == 1){cout << this->playerA.name << endl;}
+    else if(this->winner == 2){cout << this->playerB.name << endl;}
     else{cout << "a draw" << endl;}
 }
 
@@ -170,12 +162,12 @@ void Game::printLog()
 
 void Game::printStats()
 {
-    cout << this->playerA->name << " statistics: " << endl;
-    cout << "    win rate: " << (double)playerA->num_of_cards_won/(this->current_turn+1) << endl;
-    cout << "    cards won: " << playerA->cardesTaken() << endl;
-    cout << this->playerB->name << " statistics: " << endl;
-    cout << "    win rate: " << (double)playerB->num_of_cards_won/(this->current_turn +1) << endl;
-    cout << "    cards won: " << playerB->cardesTaken() << endl;
+    cout << this->playerA.name << " statistics: " << endl;
+    cout << "    win rate: " << (double)playerA.num_of_cards_won/(this->current_turn+1) << endl;
+    cout << "    cards won: " << playerA.cardesTaken() << endl;
+    cout << this->playerB.name << " statistics: " << endl;
+    cout << "    win rate: " << (double)playerB.num_of_cards_won/(this->current_turn +1) << endl;
+    cout << "    cards won: " << playerB.cardesTaken() << endl;
     cout << "draw rate: " << (double)this->amount_of_draws/(this->current_turn+1) << endl;
     cout << "amount of draws: " << this->amount_of_draws << endl;
 }

@@ -11,7 +11,7 @@ public:
 
     Card(){suit = 0 ; value = 0;}
     Card(int suit, int value);
-    // Card(Card c);
+    // Card(const Card& c);
     int get_val (){return value;}
     int get_suit(){return suit;}
     string convertCard();

@@ -14,8 +14,8 @@ namespace ariel
     {
         private:
             static unsigned long const NUM_OF_CARDS_IN_DECK = 52;
-            Player* playerA;
-            Player* playerB;
+            Player& playerA;
+            Player& playerB;
             int current_turn;
             int amount_of_draws;
             int all_cards[NUM_OF_CARDS_IN_DECK];

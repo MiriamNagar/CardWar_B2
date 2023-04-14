@@ -12,7 +12,7 @@ Card::Card(int suit, int value)
     this->value = value;
 }
 
-// Card::Card(Card c)
+// Card::Card(const Card& c)
 // {
 //     this(c.suit, c.value);
 // }
